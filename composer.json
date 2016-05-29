@@ -1,7 +1,7 @@
 {
     "name": "programster/google-charts",
     "type": "library",
-    "description": "Package to help with implementing chats through Google charts.",
+    "description": "PHP Package to help with implementing charts through the Google charts javascript library.",
     "keywords": ["charts","graphs"],
     "homepage": "https://github.com/programster/package-google-charts",
     "license": "MIT",
