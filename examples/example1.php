@@ -1,4 +1,15 @@
 <?php
+
+require_once(__DIR__ . '/vendor/autoload.php');
+require_once(__DIR__ . '/vendor/programster/google-charts/Animation.php');
+require_once(__DIR__ . '/vendor/programster/google-charts/Legend.php');
+require_once(__DIR__ . '/vendor/programster/google-charts/LineChart.php');
+require_once(__DIR__ . '/vendor/programster/google-charts/LineChartArea.php');
+require_once(__DIR__ . '/vendor/programster/google-charts/LineChartAxis.php');
+require_once(__DIR__ . '/vendor/programster/google-charts/LineChartBackground.php');
+require_once(__DIR__ . '/vendor/programster/google-charts/TextStyle.php');
+require_once(__DIR__ . '/vendor/programster/google-charts/TrendLine.php');
+
 function convertDataToChartForm($data)
 {
     $newData = array();
@@ -64,9 +75,8 @@ $data = array(
 
 <?php 
 
-require_once(__DIR__ . '/LineChart.php'); 
 
-$lineChart = new LineChart(
+$lineChart = new Programster\GoogleCharts\LineChart(
     "curve_chart", 
     convertDataToChartForm($data), 
     "Risk Worm Star Rating"
@@ -74,7 +84,7 @@ $lineChart = new LineChart(
 
 
 
-$lineChart->setHorizontalAxis(new LineChartAxis("Year"));
+$lineChart->setHorizontalAxis(new \Programster\GoogleCharts\LineChartAxis("Year"));
 
 $star5 = array('type' => 'area', 'color' => 'green', 'pointsVisible' => 'false', 'areaOpacity' => 0.7);
 $star4 = array('type' => 'area', 'color' => 'yellow', 'pointsVisible' => 'false', 'areaOpacity' => 0.7);
@@ -91,7 +101,7 @@ $lineChart->setSeries(array(
     )
 );
 
-$vAxis = new LineChartAxis("Sales");
+$vAxis = new \Programster\GoogleCharts\LineChartAxis("Sales");
 $vAxis->setBaseLineColor("green");
 $vAxis->setMinValue(0);
 $vAxis->setLabelInterval(5);
@@ -102,7 +112,7 @@ $lineChart->setPointsVisible(true);
 $lineChart->setPointSize(20);
 #$lineChart->setSmoothedCurve();
 
-$animation = new Animation(500,  "out");
+$animation = new Programster\GoogleCharts\Animation(500,  "out");
 $lineChart->setAnimation($animation);
 
 #$lineChart->setLineColors(array("green", "orange"));
@@ -115,7 +125,6 @@ $lineChart->setAnimation($animation);
 <html>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-      
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
        
   </head>
