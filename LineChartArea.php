@@ -4,26 +4,42 @@ namespace Programster\GoogleCharts;
 
 
 class LineChartArea implements \JsonSerializable
-{
-    private $m_backgroundColor;
-    private $m_left = "auto";
-    private $m_top = "auto";
-    private $m_width = "auto";
-    private $m_height = "auto";
+{    
+    private $m_options = array();
+    
     
     public function __construct($backgroundColor)
     {
-        $this->m_backgroundColor = $backgroundColor;
+        $this->m_options['backgroundColor'] = $backgroundColor;
     }
-
+    
+    
+    public function setTop($top)
+    {
+        $this->m_options['top'] = $top;
+    }
+    
+    
+    public function setLeft($left)
+    {
+        $this->m_options['left'] = $left;
+    }
+    
+    
+    public function setWidth($width)
+    {
+        $this->m_options['width'] = $width;
+    }
+    
+    
+    public function setHeight($height)
+    {
+        $this->m_options['height'] = $height;
+    }
+    
+    
     public function jsonSerialize() 
     {
-        return array(
-            "backgroundColor" => $this->m_backgroundColor,
-            "left" => $this->m_left,
-            "top" => $this->m_top,
-            "width" => $this->m_width,
-            "height" => $this->m_height,
-        );
+        return $this->m_options;
     }
 }
