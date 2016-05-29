@@ -3,7 +3,7 @@
 namespace Programster\GoogleCharts;
 
 
-class LineChartBackground implements JsonSerializable
+class LineChartBackground implements \JsonSerializable
 {
     private $m_stroke;
     private $m_fill;

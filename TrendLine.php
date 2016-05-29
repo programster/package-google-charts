@@ -3,7 +3,7 @@
 namespace Programster\GoogleCharts;
 
 
-class Trendline implements JsonSerializable
+class Trendline implements \JsonSerializable
 {
     private $m_options;
     
@@ -39,7 +39,7 @@ class Trendline implements JsonSerializable
     {
         if ($this->m_options['type'] !== "polynomial")
         {
-            throw new Exception("Cannot set degree on a non polynomial trendline.");
+            throw new \Exception("Cannot set degree on a non polynomial trendline.");
         }
         
         $this->m_options['degree'] = $degree;

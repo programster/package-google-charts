@@ -4,7 +4,7 @@ namespace Programster\GoogleCharts;
 
 
 
-class LineChartAxis implements JsonSerializable
+class LineChartAxis implements \JsonSerializable
 {
     private $m_options;
     
@@ -56,7 +56,7 @@ class LineChartAxis implements JsonSerializable
         
         if (!in_array($type, $allowedValues))
         {
-            throw new Exception("Invalid scale type: " . $type);
+            throw new \Exception("Invalid scale type: " . $type);
         }
         
         if (isset($this->m_options['logScale']))
@@ -74,7 +74,7 @@ class LineChartAxis implements JsonSerializable
         
         if (!in_array($position, $allowedValues))
         {
-            throw new Exception("Invalid text position value: " . $type);
+            throw new \Exception("Invalid text position value: " . $type);
         }
         
         $this->m_options['textPosition'] = $position;

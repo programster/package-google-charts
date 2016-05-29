@@ -3,7 +3,7 @@
 namespace Programster\GoogleCharts;
 
 
-class TextStyle implements JsonSerializable
+class TextStyle implements \JsonSerializable
 {
     private $m_color;
     private $m_isBold;

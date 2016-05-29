@@ -3,7 +3,7 @@
 namespace Programster\GoogleCharts;
 
 
-class Animation implements JsonSerializable
+class Animation implements \JsonSerializable
 {
     private $m_duration;
     private $m_easing;

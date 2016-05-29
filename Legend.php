@@ -13,12 +13,12 @@ class Legend implements JsonSerializable
         
         if (!in_array($position, $positionAllowedValues))
         {
-            throw new Exception("Invalid legend position: " . $position);
+            throw new \Exception("Invalid legend position: " . $position);
         }
         
         if (!in_array($alignment, $alignmentAllowedValues))
         {
-            throw new Exception("Invalid legend alignment: " . $position);
+            throw new \Exception("Invalid legend alignment: " . $position);
         }
         
         $this->m_options['position'] = $position;

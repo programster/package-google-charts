@@ -150,7 +150,7 @@ class LineChart
         
         if (!in_array($shape, $allowedValues))
         {
-            throw new Exception("Invalid point shape: " . $shape);
+            throw new \Exception("Invalid point shape: " . $shape);
         }
         
         $this->m_options['pointShape'] = $shape;

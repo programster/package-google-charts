@@ -3,7 +3,7 @@
 namespace Programster\GoogleCharts;
 
 
-class LineChartArea implements JsonSerializable
+class LineChartArea implements \JsonSerializable
 {
     private $m_backgroundColor;
     private $m_left = "auto";
