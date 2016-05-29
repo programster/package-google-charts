@@ -15,6 +15,24 @@ class LineChartAxis implements \JsonSerializable
     }
     
     
+    /**
+     * Set the position of the title.
+     * @param type $position - one of "in", "out" or "none.
+     * @throws \Exception
+     */
+    public function setTitlePosition($position)
+    {
+        $allowedValues = array("in", "out", "none");
+        
+        if (!in_array($position, $allowedValues))
+        {
+            throw new \Exception("Invalid position: " . $position);
+        }
+        
+        $this->m_options['titlePosition'] = $position;
+    }
+    
+    
     public function setBaseline($baseline)
     {
         $this->m_options['baseline'] = $baseline;
