@@ -4,7 +4,7 @@ namespace Programster\GoogleCharts;
 
 
 
-class Legend implements JsonSerializable
+class Legend implements \JsonSerializable
 {
     public function __construct($position, $alignment)
     {
