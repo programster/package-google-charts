@@ -37,8 +37,8 @@ $data = array(
         '3 star target' => 300,
         '4 star target' => 150,
         '5 star target' => 75,
-        'data 1 SRS' => 600,
-        'data 2 SRS' => 450,
+        'Dataset 1 SRS' => 50,
+        'Dataset 2 SRS' => 100,
     ),
     array(
         'Year' => 2,
@@ -47,8 +47,8 @@ $data = array(
         '3 star target' => 300,
         '4 star target' => 150,
         '5 star target' => 75,
-        'data 1 SRS' => 1000,
-        'data 2 SRS' => 400,
+        'Dataset 1 SRS' => 300,
+        'Dataset 2 SRS' => 400,
     ),
     array(
         'Year' => 3,
@@ -57,8 +57,8 @@ $data = array(
         '3 star target' => 300,
         '4 star target' => 150,
         '5 star target' => 75,
-        'data 1 SRS' => 1170,
-        'data 2 SRS' => 460,
+        'Dataset 1 SRS' => 1000,
+        'Dataset 2 SRS' => 460,
     ),
     array(
         'Year' => 4,
@@ -67,8 +67,8 @@ $data = array(
         '3 star target' => 300,
         '4 star target' => 150,
         '5 star target' => 75,
-        'data 1 SRS' => 660,
-        'data 2 SRS' => 1120,
+        'Dataset 1 SRS' => 660,
+        'Dataset 2 SRS' => 900,
     )
 );
 ?>
@@ -84,7 +84,7 @@ $lineChart = new Programster\GoogleCharts\LineChart(
 
 
 
-$lineChart->setHorizontalAxis(new \Programster\GoogleCharts\LineChartAxis("Year"));
+$lineChart->setHorizontalAxis(new \Programster\GoogleCharts\LineChartAxis("Distance"));
 
 $star5 = array('type' => 'area', 'color' => 'green', 'pointsVisible' => 'false', 'areaOpacity' => 0.7);
 $star4 = array('type' => 'area', 'color' => 'yellow', 'pointsVisible' => 'false', 'areaOpacity' => 0.7);
@@ -101,23 +101,27 @@ $lineChart->setSeries(array(
     )
 );
 
-$vAxis = new \Programster\GoogleCharts\LineChartAxis("Sales");
+$vAxis = new \Programster\GoogleCharts\LineChartAxis("Risk Level");
 $vAxis->setBaseLineColor("green");
 $vAxis->setMinValue(0);
-$vAxis->setLabelInterval(5);
+$vAxis->setMaxValue(1200);
 
 $lineChart->setVerticalAxis($vAxis);
 $lineChart->setPointShape("diamond");
 $lineChart->setPointsVisible(true);
-$lineChart->setPointSize(20);
-#$lineChart->setSmoothedCurve();
+$lineChart->setPointSize(6);
+$lineChart->setSmoothedCurve();
 
 $animation = new Programster\GoogleCharts\Animation(500,  "out");
 $lineChart->setAnimation($animation);
 
-#$lineChart->setLineColors(array("green", "orange"));
+$lineChart->setLineColors(array("white", "blue"));
 #$lineChart->setBackground(new LineChartBackground("white", "black", 5));
-#$lineChart->setChartArea(new LineChartArea("yellow"));
+
+##$chartArea = new Programster\GoogleCharts\LineChartArea("black");
+#$chartArea->setHeight("100%");
+#$lineChart->setChartArea($chartArea);
+#
 #$lineChart->setClickHandler("chartClickHandler");
 #$lineChart->setSelectHandler("chartSelectHandler");
 ?>

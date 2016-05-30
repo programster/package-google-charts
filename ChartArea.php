@@ -3,7 +3,7 @@
 namespace Programster\GoogleCharts;
 
 
-class LineChartArea implements \JsonSerializable
+class ChartArea implements \JsonSerializable
 {    
     private $m_options = array();
     
