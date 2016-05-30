@@ -4,7 +4,7 @@ namespace Programster\GoogleCharts;
 
 
 
-class LineChartAxis implements \JsonSerializable
+class Axis implements \JsonSerializable
 {
     private $m_options;
     
