@@ -9,6 +9,7 @@ require_once(__DIR__ . '/../Axis.php');
 require_once(__DIR__ . '/../Background.php');
 require_once(__DIR__ . '/../TextStyle.php');
 require_once(__DIR__ . '/../TrendLine.php');
+require_once(__DIR__ . '/../Series.php');
 require_once(__DIR__ . '/../ChartManager.php');
 
 function convertDataToChartForm($data)
@@ -89,15 +90,30 @@ $lineChart2 = new Programster\GoogleCharts\LineChart(
     "SecondRisk Worm Star Rating"
 );
 
-
+#$legend = new Programster\GoogleCharts\Legend("right", "center");
+#$lineChart->setLegend($legend);
 
 $lineChart->setHorizontalAxis(new \Programster\GoogleCharts\Axis("Distance"));
 
-$star5 = array('type' => 'area', 'color' => 'green', 'pointsVisible' => 'false', 'areaOpacity' => 0.7);
-$star4 = array('type' => 'area', 'color' => 'yellow', 'pointsVisible' => 'false', 'areaOpacity' => 0.7);
-$star3 = array('type' => 'area', 'color' => 'orange', 'pointsVisible' => 'false', 'areaOpacity' => 0.7);
-$star2 = array('type' => 'area', 'color' => 'red', 'pointsVisible' => 'false', 'areaOpacity' => 0.7);
-$star1 = array('type' => 'area', 'color' => 'black', 'pointsVisible' => 'false', 'areaOpacity' => 0.7);
+$seriesConfig = new \Programster\GoogleCharts\Series();
+$seriesConfig->setType("area");
+$seriesConfig->setPointsVisible(false);
+$seriesConfig->setVisibleInLegend(false);
+$seriesConfig->setAreaOpacity(0.5);
+$seriesConfig->setLineWidth(0);
+$seriesConfig->setIsInteractive(false);
+
+$star5 = clone $seriesConfig;
+$star4 = clone $seriesConfig;
+$star3 = clone $seriesConfig;
+$star2 = clone $seriesConfig;
+$star1 = clone $seriesConfig;
+
+$star5->setColor("green");
+$star4->setColor("yellow");
+$star3->setColor("orange");
+$star2->setColor("red");
+$star1->setColor("black");
 
 $lineChart->setSeries(array(
     0 => $star1,
@@ -109,9 +125,7 @@ $lineChart->setSeries(array(
 );
 
 $vAxis = new \Programster\GoogleCharts\Axis("Risk Level");
-$vAxis->setBaseLineColor("green");
-$vAxis->setMinValue(0);
-$vAxis->setMaxValue(1200);
+$vAxis->setViewWindow(0, 1200);
 
 $lineChart->setVerticalAxis($vAxis);
 $lineChart->setPointShape("diamond");
@@ -119,15 +133,18 @@ $lineChart->setPointsVisible(true);
 $lineChart->setPointSize(6);
 $lineChart->setSmoothedCurve();
 
-$animation = new Programster\GoogleCharts\Animation(500,  "out");
-$lineChart->setAnimation($animation);
+#$animation = new Programster\GoogleCharts\Animation(500,  "out");
+#$lineChart->setAnimation($animation);
 
 $lineChart->setLineColors(array("white", "blue"));
 #$lineChart->setBackground(new Background("white", "black", 5));
 
-##$chartArea = new Programster\GoogleCharts\ChartArea("black");
-#$chartArea->setHeight("100%");
-#$lineChart->setChartArea($chartArea);
+$chartArea = new Programster\GoogleCharts\ChartArea("white");
+$chartArea->setWidth("70%");
+$chartArea->setHeight("70%");
+$chartArea->setLeft("100");
+$chartArea->setTop("100");
+$lineChart->setChartArea($chartArea);
 #
 #$lineChart->setClickHandler("chartClickHandler");
 #$lineChart->setSelectHandler("chartSelectHandler");
@@ -148,7 +165,7 @@ $chartBuilder->addChart($lineChart2);
   <body>
     
     <div id="curve_chart" style="width:100%; height:100%"></div>
-    <div id="curve_chart2" style="width:100%; height:100%"></div>
+    <div id="curve_chart2" style="width:300px; height:300px"></div>
     
     <script>
         
