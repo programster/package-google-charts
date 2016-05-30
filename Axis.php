@@ -145,7 +145,8 @@ class Axis implements \JsonSerializable
     
     
     /**
-     * Set the maximum value of this axis.
+     * Set the maximum value of this axis. You may want to be use 
+     * setViewWindow instead depending on what you are trying to achieve.
      * @param mixed $maxValue
      */
     public function setMaxValue($maxValue)
@@ -155,8 +156,9 @@ class Axis implements \JsonSerializable
     
     
     /**
-     * Set the maximum value of this axis.
-     * @param mixed $maxValue
+     * Set the maximum value of this axis. You may want to be use 
+     * setViewWindow instead depending on what you are trying to achieve.
+     * @param mixed $minValue
      */
     public function setMinValue($minValue)
     {
@@ -167,5 +169,21 @@ class Axis implements \JsonSerializable
     public function jsonSerialize() 
     {
         return $this->m_options;
+    }
+    
+    
+    /**
+     * Specify the cropping range of the axis.
+     * @param mixed $min - "auto" or a value
+     * @param mixed $max - "auto" or a value
+     */
+    public function setViewWindow($min="auto", $max="auto")
+    {
+        $viewWindow = array(
+            'max' => $max,
+            'min' => $min
+        );
+        
+        $this->m_options['viewWindow'] = $viewWindow;
     }
 }
