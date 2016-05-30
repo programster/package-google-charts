@@ -36,7 +36,7 @@ class ChartManager
         $html =  
             '<script type="text/javascript">' . PHP_EOL .
             'google.charts.load(\'current\', {\'packages\':[\'corechart\']});' . PHP_EOL .
-            'google.charts.setOnLoadCallback(drawCharts);' . PHP_EOL .
+            'google.charts.setOnLoadCallback(initializeCharts);' . PHP_EOL .
             'function drawCharts() {' . PHP_EOL;
         
         foreach ($this->m_charts as $chart)
@@ -47,6 +47,11 @@ class ChartManager
             
         $html .=
             "};" . PHP_EOL .
+                
+            "function initializeCharts(){" .
+                'drawCharts();' . PHP_EOL .
+                'window.onresize = function(event){drawCharts();};' . PHP_EOL .
+            "}" .
             "</script>";
         
         return $html;
