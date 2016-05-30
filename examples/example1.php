@@ -1,14 +1,15 @@
 <?php
 
-require_once(__DIR__ . '/vendor/autoload.php');
-require_once(__DIR__ . '/vendor/programster/google-charts/Animation.php');
-require_once(__DIR__ . '/vendor/programster/google-charts/Legend.php');
-require_once(__DIR__ . '/vendor/programster/google-charts/LineChart.php');
-require_once(__DIR__ . '/vendor/programster/google-charts/LineChartArea.php');
-require_once(__DIR__ . '/vendor/programster/google-charts/LineChartAxis.php');
-require_once(__DIR__ . '/vendor/programster/google-charts/LineChartBackground.php');
-require_once(__DIR__ . '/vendor/programster/google-charts/TextStyle.php');
-require_once(__DIR__ . '/vendor/programster/google-charts/TrendLine.php');
+require_once(__DIR__ . '/../ChartInterface.php');
+require_once(__DIR__ . '/../Animation.php');
+require_once(__DIR__ . '/../Legend.php');
+require_once(__DIR__ . '/../LineChart.php');
+require_once(__DIR__ . '/../ChartArea.php');
+require_once(__DIR__ . '/../Axis.php');
+require_once(__DIR__ . '/../Background.php');
+require_once(__DIR__ . '/../TextStyle.php');
+require_once(__DIR__ . '/../TrendLine.php');
+require_once(__DIR__ . '/../ChartManager.php');
 
 function convertDataToChartForm($data)
 {
@@ -82,9 +83,15 @@ $lineChart = new Programster\GoogleCharts\LineChart(
     "Risk Worm Star Rating"
 );
 
+$lineChart2 = new Programster\GoogleCharts\LineChart(
+    "curve_chart2", 
+    convertDataToChartForm($data), 
+    "SecondRisk Worm Star Rating"
+);
 
 
-$lineChart->setHorizontalAxis(new \Programster\GoogleCharts\LineChartAxis("Distance"));
+
+$lineChart->setHorizontalAxis(new \Programster\GoogleCharts\Axis("Distance"));
 
 $star5 = array('type' => 'area', 'color' => 'green', 'pointsVisible' => 'false', 'areaOpacity' => 0.7);
 $star4 = array('type' => 'area', 'color' => 'yellow', 'pointsVisible' => 'false', 'areaOpacity' => 0.7);
@@ -101,7 +108,7 @@ $lineChart->setSeries(array(
     )
 );
 
-$vAxis = new \Programster\GoogleCharts\LineChartAxis("Risk Level");
+$vAxis = new \Programster\GoogleCharts\Axis("Risk Level");
 $vAxis->setBaseLineColor("green");
 $vAxis->setMinValue(0);
 $vAxis->setMaxValue(1200);
@@ -116,25 +123,32 @@ $animation = new Programster\GoogleCharts\Animation(500,  "out");
 $lineChart->setAnimation($animation);
 
 $lineChart->setLineColors(array("white", "blue"));
-#$lineChart->setBackground(new LineChartBackground("white", "black", 5));
+#$lineChart->setBackground(new Background("white", "black", 5));
 
-##$chartArea = new Programster\GoogleCharts\LineChartArea("black");
+##$chartArea = new Programster\GoogleCharts\ChartArea("black");
 #$chartArea->setHeight("100%");
 #$lineChart->setChartArea($chartArea);
 #
 #$lineChart->setClickHandler("chartClickHandler");
 #$lineChart->setSelectHandler("chartSelectHandler");
+
+$chartBuilder = new Programster\GoogleCharts\ChartManager();
+$chartBuilder->addChart($lineChart);
+$chartBuilder->addChart($lineChart2);
 ?>
 
 <html>
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> -->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        
+        <?php echo $chartBuilder->getHtml(); ?>
        
   </head>
   <body>
     
     <div id="curve_chart" style="width:100%; height:100%"></div>
+    <div id="curve_chart2" style="width:100%; height:100%"></div>
     
     <script>
         
@@ -148,7 +162,7 @@ $lineChart->setLineColors(array("white", "blue"));
             alert("select handler fired");
         }
     </script>
-    <?php echo $lineChart->getHtmlScript(); ?>
+    
     
   </body>
 </html>

@@ -3,7 +3,7 @@
 namespace Programster\GoogleCharts;
 
 
-class LineChart
+class LineChart implements ChartInterface
 {
     private $m_options;
     private $m_anchorId;
@@ -44,7 +44,7 @@ class LineChart
      * Set the background color of the chart.
      * @param type $color
      */
-    public function setBackground(LineChartBackground $background)
+    public function setBackground(Background $background)
     {
         # @todo - validate color is hex code or english text for a color.
         $this->m_options['backgroundColor'] = $background;
@@ -76,7 +76,7 @@ class LineChart
     }
     
     
-    public function setChartArea(LineChartArea $areaConfig)
+    public function setChartArea(ChartArea $areaConfig)
     {
         $this->m_options['chartArea'] = $areaConfig;
     }
@@ -106,13 +106,13 @@ class LineChart
     }
     
     
-    public function setHorizontalAxis(LineChartAxis $axis)
+    public function setHorizontalAxis(Axis $axis)
     {
         $this->m_options['hAxis'] = $axis;
     }
     
     
-    public function setVerticalAxis(LineChartAxis $axis)
+    public function setVerticalAxis(Axis $axis)
     {
         $this->m_options['vAxis'] = $axis;
     }
@@ -191,8 +191,10 @@ class LineChart
     /**
      * Returns the relevant javascript for creating and producing the chart.
      */
-    public function getHtmlScript()
+    public function getHtml()
     {
+        $html = "";
+        
         if (count($this->m_trendlines) > 0)
         {
             $this->m_options['trendlines'] = json_decode(json_encode($this->m_trendlines, JSON_FORCE_OBJECT)); 
@@ -202,31 +204,23 @@ class LineChart
         $this->m_options['seriesType'] = 'lines';
         $chartType = "ComboChart"; # LineChart
         
-        print 
-            '<script type="text/javascript">' . PHP_EOL .
-            'google.charts.load(\'current\', {\'packages\':[\'corechart\']});' . PHP_EOL .
-            'google.charts.setOnLoadCallback(drawChart);' . PHP_EOL .
-            'function drawChart() {' . PHP_EOL . # contain the scope.
-                "var data = google.visualization.arrayToDataTable(" . json_encode($this->m_data) . ");" . PHP_EOL .
-                "var options = " . json_encode($this->m_options) . ";" . PHP_EOL .
-                "var chart = new google.visualization." . $chartType . "(document.getElementById('" . $this->m_anchorId . "'));" . PHP_EOL;
+        $html .= 
+            "var data = google.visualization.arrayToDataTable(" . json_encode($this->m_data) . ");" . PHP_EOL .
+            "var options = " . json_encode($this->m_options) . ";" . PHP_EOL .
+            "var chart = new google.visualization." . $chartType . "(document.getElementById('" . $this->m_anchorId . "'));" . PHP_EOL;
         
         if ($this->m_clickHandler != null)
         {
-            print "google.visualization.events.addListener(chart, 'click', " . $this->m_clickHandler . ");";
+            $html .= "google.visualization.events.addListener(chart, 'click', " . $this->m_clickHandler . ");";
         }
         
         if ($this->m_selectHandler != null)
         {
-            print "google.visualization.events.addListener(chart, 'select', " . $this->m_selectHandler . ");";
+            $html .= "google.visualization.events.addListener(chart, 'select', " . $this->m_selectHandler . ");";
         }
         
+        $html .= "chart.draw(data, options);" . PHP_EOL;
         
-        
-        print "chart.draw(data, options);" . PHP_EOL . 
-                
-                
-            "};" . PHP_EOL .
-            "</script>";
+        return $html;
     }
 }
