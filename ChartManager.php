@@ -31,13 +31,21 @@ class ChartManager
     /**
      * Returns the relevant javascript for creating and producing the chart.
      */
-    public function getHtml()
+    public function getHtml($assignment)
     {
         $html =  
             '<script type="text/javascript">' . PHP_EOL .
-            'google.charts.load(\'current\', {\'packages\':[\'corechart\']});' . PHP_EOL .
-            'google.charts.setOnLoadCallback(initializeCharts);' . PHP_EOL .
-            'function drawCharts() {' . PHP_EOL;
+                $assignment . ' = function() { 
+                // This "defined" hack prevents us loading google charts twice.
+                var defined = typeof google_charts_loaded !== typeof undefined ? true : false;
+                if (!defined)
+                {
+                    google.charts.load(\'current\', {\'packages\':[\'corechart\']});
+                    google_charts_loaded = true;
+                }
+                
+                google.charts.setOnLoadCallback(initializeCharts);
+                function drawCharts() {' . PHP_EOL;
         
         foreach ($this->m_charts as $chart)
         {
@@ -46,13 +54,14 @@ class ChartManager
         }
             
         $html .=
-            "};" . PHP_EOL .
+                "};
                 
-            "function initializeCharts(){" .
-                'drawCharts();' . PHP_EOL .
-                'window.onresize = function(event){drawCharts();};' . PHP_EOL .
-            "}" .
-            "</script>";
+                function initializeCharts(){
+                    drawCharts();
+                    window.onresize = function(event){drawCharts();};
+                }
+            };
+            </script>";
         
         return $html;
     }

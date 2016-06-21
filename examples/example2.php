@@ -1,5 +1,7 @@
 <?php
 
+// This example demonstrates that we dont have to stick anything in the head.
+
 require_once(__DIR__ . '/vendor/autoload.php');
 
 function convertDataToChartForm($data)
@@ -80,6 +82,7 @@ $lineChart2 = new Programster\GoogleCharts\LineChart(
     "SecondRisk Worm Star Rating"
 );
 
+
 #$legend = new Programster\GoogleCharts\Legend("right", "center");
 #$lineChart->setLegend($legend);
 
@@ -135,46 +138,30 @@ $chartArea->setHeight("70%");
 $chartArea->setLeft("100");
 $chartArea->setTop("100");
 $lineChart->setChartArea($chartArea);
-#
-#$lineChart->setClickHandler("chartClickHandler");
-#$lineChart->setSelectHandler("chartSelectHandler");
 
 $chartBuilder = new Programster\GoogleCharts\ChartManager();
 $chartBuilder->addChart($lineChart);
+
+$chartBuilder2 = new Programster\GoogleCharts\ChartManager();
 $chartBuilder->addChart($lineChart2);
 ?>
 
 <html>
-    <head>
-        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> -->
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        
-        <script type="text/javascript">
-        var drawCharts;
-    
-        </script>
-        <?php echo $chartBuilder->getHtml('drawCharts'); ?>
-        <script type="text/javascript">drawCharts();</script>
-       
-  </head>
   <body>
-    
+  
     <div id="curve_chart" style="width:100%; height:100%"></div>
-    <div id="curve_chart2" style="width:300px; height:300px"></div>
     
-    <script>
-        
-        function chartClickHandler()
-        {
-            alert("click handler fired");
-        }
-        
-        function chartSelectHandler()
-        {
-            alert("select handler fired");
-        }
+    <div id="curve_chart2" style="width:100%; height:100%"></div>
+    
+    
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" defer></script>
+    <script type="text/javascript">
+    var callback1, callback2;
+    window.onload = function(){ callback1(); callback2(); };
     </script>
-    
+    <?php echo $chartBuilder->getHtml("callback1"); ?>
+    <?php echo $chartBuilder2->getHtml("callback2"); ?>
     
   </body>
 </html>
