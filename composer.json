@@ -1,5 +1,5 @@
 {
-    "name": "programster/googlecharts",
+    "name": "programster/google-charts",
     "type": "library",
     "description": "PHP Package to help with implementing charts through the Google charts javascript library.",
     "keywords": ["charts","graphs"],
@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "programster\\googlecharts\\": ""
+            "Programster\\GoogleCharts\\": ""
         }
     }
 }
