@@ -182,7 +182,7 @@ class LineChart implements ChartInterface
     }
     
     
-    public function setSeries(array$series)
+    public function setSeries(array $series)
     {
         $this->m_options['series'] = $series;
     }
