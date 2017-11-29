@@ -31,13 +31,14 @@ class ChartManager
     /**
      * Returns the relevant javascript for creating and producing the chart.
      */
-    public function getHtml($assignment)
+    public function getHtml(string $assignment) : string
     {
         $html =  
             '<script type="text/javascript">' . PHP_EOL .
                 $assignment . ' = function() { 
                 // This "defined" hack prevents us loading google charts twice.
                 var defined = typeof google_charts_loaded !== typeof undefined ? true : false;
+                
                 if (!defined)
                 {
                     google.charts.load(\'current\', {\'packages\':[\'corechart\']});
