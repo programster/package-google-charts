@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * The class for a Scatter chart.
+ * Unfortunately this does not yet support cases where you need to label the points. 
+ * E.g. You may wish to compare hours studied vs test score recieved, but you may want to know
+ * which students the points relate to, so we need to add support for annotations as 
+ * pointed out here: https://stackoverflow.com/questions/12848203/adding-labels-to-google-scatter-charts
+ */
+
 namespace Programster\GoogleCharts;
 
 
